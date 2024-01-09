@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sentan_soft_image
+    user: '1000:1000'
+    container_name: sentan_soft_conteiner
+    environment:
+      - WATCHPACK_POLLING=true
+    ports:
+      - '3000:3000'
+    # env_file:
+    #   - .env
+    volumes:
+      - ./sentan:/app
+    restart: always
+    stdin_open: true
+    tty: true
+    command: sh -c 'yarn dev'
