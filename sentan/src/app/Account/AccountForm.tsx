@@ -1,7 +1,10 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
-import { Database } from '../types/database.types'
-import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Database } from '../../types/database.types'
+import {
+  Session,
+  createClientComponentClient,
+} from '@supabase/auth-helpers-nextjs'
 
 export default function AccountForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>()
@@ -69,23 +72,23 @@ export default function AccountForm({ session }: { session: Session | null }) {
   }
 
   return (
-    <div className="form-widget">
+    <div className='form-widget'>
       <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session?.user.email} disabled />
+        <label htmlFor='email'>Email</label>
+        <input id='email' type='text' value={session?.user.email} disabled />
       </div>
       <div>
-        <label htmlFor="username">Username</label>
+        <label htmlFor='username'>Username</label>
         <input
-          id="username"
-          type="text"
+          id='username'
+          type='text'
           value={username || ''}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
       <div>
         <button
-          className="button primary block"
+          className='button primary block'
           onClick={() => updateProfile({ username, avatar_url })}
           disabled={loading}
         >
@@ -94,8 +97,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
       </div>
 
       <div>
-        <form action="/auth/signout" method="post">
-          <button className="button block" type="submit">
+        <form action='/auth/signout' method='post'>
+          <button className='button block' type='submit'>
             Sign out
           </button>
         </form>
