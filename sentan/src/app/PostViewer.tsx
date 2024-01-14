@@ -9,6 +9,7 @@ import { cookies } from 'next/headers'
 import { Database } from '@/types/database.types'
 import { SupabaseAuthClient } from '@supabase/supabase-js/dist/module/lib/SupabaseAuthClient'
 import { supabase } from '@supabase/auth-ui-shared'
+import { Button } from '@/components/ui/button'
 
 type Posts = {
   title: string | null
@@ -48,7 +49,15 @@ const PostViewer = () => {
 
   return (
     <div>
-      <label>aaa</label>
+      <Button
+        onClick={() => {
+          alert('Clicked')
+        }}
+        variant='outline'
+        size='huge'
+      >
+        +
+      </Button>
     </div>
   )
 }
