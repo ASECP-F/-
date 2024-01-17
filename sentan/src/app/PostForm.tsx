@@ -20,7 +20,6 @@ const PostForm = () => {
   const onSubmit: SubmitHandler<PostFormInputs> = async (data) => {
     try {
       setLoading(true)
-      console.log(data)
       const date: string = new Date().toISOString()
       const { error } = await supabase.from('posts').insert({
         id: uuidv4(),
@@ -28,10 +27,11 @@ const PostForm = () => {
         content: data.content,
         favorite: 0,
         created_at: date,
-        updated_at: date
+        updated_at: date,
       })
-      console.error(error)
+      // console.error(error)
       if (error) throw error
+      console.log(data)
     } catch (error) {
       alert(error)
     } finally {
