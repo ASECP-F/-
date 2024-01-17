@@ -1,16 +1,11 @@
 'use client'
-import {
-  SupabaseClient,
-  createClientComponentClient,
-  createServerComponentClient,
-} from '@supabase/auth-helpers-nextjs'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useCallback, useEffect, useState } from 'react'
-import { cookies } from 'next/headers'
 import { Database } from '@/types/database.types'
-import { SupabaseAuthClient } from '@supabase/supabase-js/dist/module/lib/SupabaseAuthClient'
-import { supabase } from '@supabase/auth-ui-shared'
+import PostCard from './PostCard'
 
 type Posts = {
+  id: string
   title: string | null
   content: string | null
   updated_at: string | null
@@ -26,7 +21,7 @@ const PostViewer = () => {
 
       const { data, error, status } = await supabase
         .from('posts')
-        .select(`title, content, updated_at`)
+        .select(`id, title, content, updated_at`)
 
       if (error && status !== 406) {
         throw error
@@ -46,9 +41,19 @@ const PostViewer = () => {
     if (posts) setLoading(false)
   }, [posts, getPosts])
 
+  if (!posts) return <div>loading...</div>
   return (
-    <div>
-      <label>aaa</label>
+    <div className='flex w-full flex-row flex-wrap justify-center justify-items-start gap-8'>
+      {posts?.map((post) => {
+        if (!post || !post.title || !post.content)
+          return <label>loading...</label>
+        else
+          return (
+            <li key={post.id} className='flex w-1/5 list-none'>
+              <PostCard title={post.title} content={post.content} />
+            </li>
+          )
+      })}
     </div>
   )
 }
